@@ -23,7 +23,7 @@ class TodoList extends Component {
     .then(response => response.json())
     .then(response_items => {
       this.setState({
-        items: response_items.reverse
+        items: response_items.reverse()
       })
     });
   }
@@ -42,9 +42,9 @@ class TodoList extends Component {
       <div>
         <TodoForm api_url={api_url} updateTodoList={this.updateTodoList} />
         <ul id="todo_list">
-          {this.state.items.map((item) => (
-            <TodoItem key={item.id} item={item} />
-          ))}
+            {this.state.items.map((item) => (
+                <TodoItem key={item.id} item={item} />
+            ))}
         </ul>
       </div>
     )
