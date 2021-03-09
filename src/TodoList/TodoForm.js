@@ -7,13 +7,19 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 class TodoForm extends Component {
   constructor(props) {
     super(props)
+    let defaultTask = "My default task name";
+    let defaultBody = "My default task";
 
     this.state = {
       api_url: props.api_url,
-      task: "",
+      task: defaultTask,
+      body: defaultBody,
+      defaultTaskValue: defaultTask,
+      defaultBodyValue: defaultBody
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTaskChange = this.handleTaskChange.bind(this);
+    this.handleBodyChange = this.handleBodyChange.bind(this);
   }
 
   handleSubmit(event) {
@@ -29,12 +35,22 @@ class TodoForm extends Component {
       mode: "cors",
       body: data
     }).then(response => response.json())
-    .then(response => this.props.updateTodoList(response))
+      .then(response => this.props.updateTodoList(response))
+    this.setState({
+      task: this.state.defaultTaskValue,
+      body: this.state.defaultBodyValue
+    })
   }
 
   handleTaskChange(event) {
     this.setState({
       task: event.target.value
+    })
+  }
+
+  handleBodyChange(event) {
+    this.setState({
+        body: event.target.value
     })
   }
 
@@ -55,6 +71,7 @@ class TodoForm extends Component {
                               variant="outlined"
                               type="text"
                               name="todo[task]"
+                              value={this.state.task}
                               onChange={this.handleTaskChange}
                               fullWidth />
                       </Grid>
@@ -64,6 +81,8 @@ class TodoForm extends Component {
                               label="Task Body"
                               variant="outlined"
                               type="text"
+                              value={this.state.body}
+                              onChange={this.handleBodyChange}
                               style={{ width: "99%", borderRadius: "5px" }}
                               rowsMin={3}
                               placeholder="Describe your todo item..."
@@ -78,8 +97,8 @@ class TodoForm extends Component {
                   </Grid>
               </form>
           </Grid>
-        <Grid item xs></Grid>
-    </Grid>
+          <Grid item xs></Grid>
+      </Grid>
     )
   }
 }
