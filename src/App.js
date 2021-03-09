@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Typography variant="h1">Todo Stream</Typography>
+        <Typography variant="h1">Todo Items</Typography>
         <hr />
         <TodoList />
       </header>
